@@ -5,6 +5,7 @@ pragma solidity 0.5.16;
 import "./Gov/GovERC20.sol";
 import "./Gov/GovernorAlpha.sol";
 import "./Gov/Timelock.sol";
+import "./Gov/SafeMath.sol";
 
 contract Merger {
 	// Address of the ERC20 token of one of the projects
@@ -64,10 +65,10 @@ contract Merger {
 
 		uint256 newAmt;
 		if (_token == token1) {
-			newAmt = tokenbalance * rate1;
+			newAmt = SafeMath.mul(SafeMath.div(tokenbalance, 1e18), rate1);
 		}
 		else {
-			newAmt = tokenbalance * rate2;
+			newAmt = SafeMath.mul(SafeMath.div(tokenbalance, 1e18), rate2);
 		}
 
 		Token(newToken).mint(msg.sender, newAmt);
