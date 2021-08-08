@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.5.16;
 
-//import "@openzeppelin/contracts/token/ERC20/extensions/ERC20VotesComp.sol";
 import "./Gov/GovERC20.sol";
 import "./Gov/GovernorAlpha.sol";
 import "./Gov/Timelock.sol";
