@@ -19,7 +19,7 @@ contract MergerTest is DSTest {
 
         token1.mint(address(this), 100e18);
 
-        merger = new Merger(address(token1), address(token2), 1e17, 1, "UnAAve", "COLLAB", 10 days, "UnAAVe Governance");
+        merger = new Merger(address(token1), address(token2), 10e18, 1, "UnAAve", "COLLAB", 10 days, "UnAAVe Governance");
 
         token1.approve(address(merger), 100e18);
     }
@@ -69,6 +69,6 @@ contract MergerTest is DSTest {
     function test_swap_new_token_balance() public {
         address newToken = merger.newToken();
         merger.swapTokens(address(token1));
-        assertTrue(Token(newToken).balanceOf(address(this)) == 10e18);
+        assertTrue(Token(newToken).balanceOf(address(this)) == 1000e18);
     }
 }

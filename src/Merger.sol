@@ -13,6 +13,7 @@ contract Merger {
 	address public token2;
 
 	// Amount of newTokens to mint for 1 token of token1
+	// Eg. - for every 10 newtokens per token1, rate = 10e18
 	uint256 public rate1;
 	// Amount of newTokens to mint for 1 token of token2
 	uint256 public rate2;
@@ -60,8 +61,10 @@ contract Merger {
 
 		uint256 tokenbalance = Token(_token).balanceOf(msg.sender);
 		require(tokenbalance > 0, "Insufficient token balance");
+		// Transfer user's token balance to the new contract.
 		Token(_token).transferFrom(msg.sender, address(this), tokenbalance);
 
+		// Calculate the new token balance
 		uint256 newAmt;
 		if (_token == token1) {
 			newAmt = SafeMath.mul(SafeMath.div(tokenbalance, 1e18), rate1);
@@ -70,6 +73,7 @@ contract Merger {
 			newAmt = SafeMath.mul(SafeMath.div(tokenbalance, 1e18), rate2);
 		}
 
+		// Mint new tokens
 		Token(newToken).mint(msg.sender, newAmt);
 
 		emit Merge(_token, msg.sender, tokenbalance);
